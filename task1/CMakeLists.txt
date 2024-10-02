@@ -31,16 +31,16 @@ set_target_properties(2QCache PROPERTIES
 )
 
 # Настройка spdlog через FetchContent
-include(FetchContent)
-FetchContent_Declare(
-  spdlog
-  GIT_REPOSITORY https://github.com/gabime/spdlog.git
-  GIT_TAG v1.10.0
-)
-FetchContent_MakeAvailable(spdlog)
+# include(FetchContent)
+# FetchContent_Declare(
+#   spdlog
+#   GIT_REPOSITORY https://github.com/gabime/spdlog.git
+#   GIT_TAG v1.10.0
+# )
+# FetchContent_MakeAvailable(spdlog)
 
 # Линкуем spdlog с основной целью
-target_link_libraries(2QCache PRIVATE spdlog::spdlog)
+# target_link_libraries(2QCache PRIVATE spdlog::spdlog)
 
 # Указываем настройки компиляции для Debug
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

@@ -40,18 +40,18 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 # Настройка spdlog через FetchContent
-FetchContent_Declare(
-  spdlog
-  GIT_REPOSITORY https://github.com/gabime/spdlog.git
-  GIT_TAG v1.10.0
-)
-FetchContent_MakeAvailable(spdlog)
+# FetchContent_Declare(
+#   spdlog
+#   GIT_REPOSITORY https://github.com/gabime/spdlog.git
+#   GIT_TAG v1.10.0
+# )
+# FetchContent_MakeAvailable(spdlog)
 
 # Линкуем GoogleTest с тестами
 target_link_libraries(MyTests PRIVATE GTest::gtest GTest::gtest_main)
 
 # Линкуем spdlog с тестами
-target_link_libraries(MyTests PRIVATE spdlog::spdlog)
+# target_link_libraries(MyTests PRIVATE spdlog::spdlog)
 
 # Опции компиляции для тестов в Debug режиме
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
