@@ -28,7 +28,7 @@ void getInputData(size_t &szCache, size_t &amountPages, std::vector<K> &keys) {
 
 template <typename K, typename F>
 int checkCache(size_t szCache, size_t amountPages, std::vector<K> &keys, F getPage) {
-    caches::Cache<int> cache(szCache);
+    caches::Cache2Q<int> cache(szCache);
 
     int hits{0};
     for (size_t i{0}; i < amountPages; ++i) {
