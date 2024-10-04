@@ -5,14 +5,14 @@ cmake_minimum_required(VERSION 3.10)
 project(2QCache_Tests)
 
 # Указываем стандарт C++
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Указываем исходные файлы для тестов
 set(TEST_SOURCES
-    src/test_main.cc
-    src/test_cache.cc
-    src/test_utils.cc
+    src/test_main.cpp
+    src/test_cache.cpp
+    src/test_utils.cpp
 )
 
 # Создаем цель для тестов

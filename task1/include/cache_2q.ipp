@@ -1,6 +1,8 @@
 // cache_impl.hh
 #pragma once
 
+namespace caches {
+
 template <typename T, typename K>
 Cache2Q<T, K>::Cache2Q(size_t sz) {
     // logger = spdlog::stdout_color_mt("console");
@@ -15,17 +17,17 @@ Cache2Q<T, K>::Cache2Q(size_t sz) {
     if (sz < 3) {
         throw std::out_of_range("The value must be at least 3");
     } else if (sz == 3) {
-        sizeCache2QIn_  = 1;
-        sizeCache2QOut_ = 1;
-        sizeCache2QHot_ = 1;
+        sizeCacheIn_  = 1;
+        sizeCacheOut_ = 1;
+        sizeCacheHot_ = 1;
     } else if (sz == 4) {
-        sizeCache2QIn_  = 1;
-        sizeCache2QOut_ = 2;
-        sizeCache2QHot_ = 1;
+        sizeCacheIn_  = 1;
+        sizeCacheOut_ = 2;
+        sizeCacheHot_ = 1;
     } else {
-        sizeCache2QIn_  = sz * getPartIn();
-        sizeCache2QOut_ = sz * getPartOut();
-        sizeCache2QHot_ = sz - sizeCache2QIn_ - sizeCache2QOut_;
+        sizeCacheIn_  = sz * getPartIn();
+        sizeCacheOut_ = sz * getPartOut();
+        sizeCacheHot_ = sz - sizeCacheIn_ - sizeCacheOut_;
     }
 }
 
@@ -116,3 +118,5 @@ void Cache2Q<T, K>::addToFront(List &cache, Map &hash, K key, T data) {
     cache.emplace_front(key, data);
     hash.emplace(key, cache.begin());
 }
+
+} // namespace caches

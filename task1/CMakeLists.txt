@@ -8,7 +8,7 @@ project(2QCache VERSION 1.0)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Указываем стандарт C++
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Указываем каталог для include
@@ -16,7 +16,7 @@ set(PROJECT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 # Добавляем цель для основной программы
 set(SOURCES
-    src/main.cc
+    src/main.cpp
 )
 
 add_executable(2QCache ${SOURCES})

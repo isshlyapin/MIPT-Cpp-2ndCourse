@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include "cache.hh"
-#include "test_utils.hh"
+#include "cache_2q.hpp"
+#include "test_utils.hpp"
 
 TEST(Cache, lookup_update) {
-    caches::Cache<int> cache{10};
+    caches::Cache2Q<int> cache{10};
     
     // Testing adding a new page to a not full cacheIn
     EXPECT_FALSE(cache.lookupUpdate(1, getPage));
