@@ -4,6 +4,7 @@
 #include <list>
 #include <unordered_map>
 #include <cstddef>
+#include <stdexcept>
 
 // #include <spdlog/spdlog.h>
 // #include <spdlog/sinks/stdout_color_sinks.h>

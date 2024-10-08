@@ -39,6 +39,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+# Линкуем GoogleTest с тестами
+target_link_libraries(MyTests PRIVATE GTest::gtest GTest::gtest_main)
+
 # Настройка spdlog через FetchContent
 # FetchContent_Declare(
 #   spdlog
@@ -46,9 +49,6 @@ FetchContent_MakeAvailable(googletest)
 #   GIT_TAG v1.10.0
 # )
 # FetchContent_MakeAvailable(spdlog)
-
-# Линкуем GoogleTest с тестами
-target_link_libraries(MyTests PRIVATE GTest::gtest GTest::gtest_main)
 
 # Линкуем spdlog с тестами
 # target_link_libraries(MyTests PRIVATE spdlog::spdlog)

@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Устанавливаем имя проекта
-project(2QCache VERSION 1.0)
+project(Cache VERSION 1.0)
 
 # Включаем экспорт команд компиляции
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -21,12 +21,27 @@ set(SOURCES
 
 add_executable(2QCache ${SOURCES})
 
+target_compile_definitions(2QCache PUBLIC MY_CACHE_2Q)
+
 # Указываем директории для заголовочных файлов
 target_include_directories(2QCache PRIVATE ${PROJECT_INCLUDE_DIR})
 
 set_target_properties(2QCache PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
-    OUTPUT_NAME cache
+    OUTPUT_NAME cache_2q
+    DEBUG_POSTFIX _debug
+)
+
+add_executable(BeladyCache ${SOURCES})
+
+target_compile_definitions(BeladyCache PUBLIC MY_CACHE_BELADY)
+
+# Указываем директории для заголовочных файлов
+target_include_directories(BeladyCache PRIVATE ${PROJECT_INCLUDE_DIR})
+
+set_target_properties(BeladyCache PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+    OUTPUT_NAME cache_belady
     DEBUG_POSTFIX _debug
 )
 
