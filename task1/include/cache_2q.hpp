@@ -6,9 +6,6 @@
 #include <cstddef>
 #include <stdexcept>
 
-// #include <spdlog/spdlog.h>
-// #include <spdlog/sinks/stdout_color_sinks.h>
-
 namespace caches {
 
 template <typename T, typename K = int>
@@ -23,9 +20,9 @@ public:
 
     template <typename F>
     bool lookupUpdate(K key, F slowGetPage);  
-    const List &getCacheIn()  { return cacheIn_;  };
-    const List &getCacheHot() { return cacheHot_; };
-    const List &getCacheOut() { return cacheOut_; };
+    const List &getCacheIn()  { return cacheIn_;  }
+    const List &getCacheHot() { return cacheHot_; }
+    const List &getCacheOut() { return cacheOut_; }
 
 private:
     double getPartIn()  const { return 0.2; }
@@ -45,9 +42,6 @@ private:
     void moveToFront(List &cache, ListIt elt);
     void remove(List &cache, Map &hash, ListIt elt);
     void addToFront(List &cache, Map &hash, K key, T data);
-
-
-    // std::shared_ptr<spdlog::logger> logger;
 
     size_t sizeCacheIn_;
     size_t sizeCacheOut_;

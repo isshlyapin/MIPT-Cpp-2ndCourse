@@ -4,16 +4,7 @@
 namespace caches {
 
 template <typename T, typename K>
-Cache2Q<T, K>::Cache2Q(size_t sz) {
-    // logger = spdlog::stdout_color_mt("console");
-    // logger->set_pattern("[%^%l%$] %v");
-
-    // #ifdef MYLOG_DEBUG
-    //     spdlog::set_level(spdlog::level::debug);
-    // #else
-    //     spdlog::set_level(spdlog::level::off);
-    // #endif
-    
+Cache2Q<T, K>::Cache2Q(size_t sz) {   
     if (sz < 3) {
         throw std::out_of_range("The value must be at least 3");
     } else if (sz == 3) {
@@ -25,8 +16,8 @@ Cache2Q<T, K>::Cache2Q(size_t sz) {
         sizeCacheOut_ = 2;
         sizeCacheHot_ = 1;
     } else {
-        sizeCacheIn_  = sz * getPartIn();
-        sizeCacheOut_ = sz * getPartOut();
+        sizeCacheIn_  = static_cast<size_t>(static_cast<double>(sz) * getPartIn());
+        sizeCacheOut_ = static_cast<size_t>(static_cast<double>(sz) * getPartOut());
         sizeCacheHot_ = sz - sizeCacheIn_ - sizeCacheOut_;
     }
 }
@@ -34,7 +25,6 @@ Cache2Q<T, K>::Cache2Q(size_t sz) {
 template <typename T, typename K>
 template <typename F>
 bool Cache2Q<T, K>::lookupUpdate(K key, F slowGetPage) {
-    // logger->debug("Started lookupUpdate");
     if (lookupUpdateIn(key) || lookupUpdateHot(key) || lookupUpdateOut(key)) {
         return true;
     } else {
@@ -45,7 +35,6 @@ bool Cache2Q<T, K>::lookupUpdate(K key, F slowGetPage) {
 
 template <typename T, typename K>
 bool Cache2Q<T, K>::lookupUpdateIn(K key) {
-    // logger->debug("Started lookupUpdateIn");
     auto hit = hashIn_.find(key);
     if (hit != hashIn_.end()) {
         moveToFront(cacheIn_, hit->second);
@@ -57,7 +46,6 @@ bool Cache2Q<T, K>::lookupUpdateIn(K key) {
 
 template <typename T, typename K>
 bool Cache2Q<T, K>::lookupUpdateHot(K key) {
-    // logger->debug("Started lookupUpdateHot");
     auto hit = hashHot_.find(key);
     if (hit != hashHot_.end()) {
         moveToFront(cacheHot_, hit->second);
@@ -69,7 +57,6 @@ bool Cache2Q<T, K>::lookupUpdateHot(K key) {
 
 template <typename T, typename K>
 bool Cache2Q<T, K>::lookupUpdateOut(K key) {
-    // logger->debug("Started lookupUpdateOut");
     auto hit = hashOut_.find(key);
     if (hit != hashOut_.end()) {
         if (fullHot()) {
@@ -86,7 +73,6 @@ bool Cache2Q<T, K>::lookupUpdateOut(K key) {
 template <typename T, typename K>
 template <typename F>
 void Cache2Q<T, K>::addToIn(K key, F slowGetPage) {
-    // logger->debug("Started addToIn");
     if (fullIn()) {
         if (fullOut()) {
             remove(cacheOut_, hashOut_, std::prev(cacheOut_.end()));
@@ -99,7 +85,6 @@ void Cache2Q<T, K>::addToIn(K key, F slowGetPage) {
 
 template <typename T, typename K>
 void Cache2Q<T, K>::moveToFront(List &cache, ListIt elt) {
-    // logger->debug("Started moveToFront");
     if (cache.size() > 1 && elt != cache.begin()) {
         cache.splice(cache.begin(), cache, elt);
     }
@@ -107,14 +92,12 @@ void Cache2Q<T, K>::moveToFront(List &cache, ListIt elt) {
 
 template <typename T, typename K>
 void Cache2Q<T, K>::remove(List &cache, Map &hash, ListIt elt) {
-    // logger->debug("Started remove");
     hash.erase(elt->first);
     cache.erase(elt);
 }
 
 template <typename T, typename K>
 void Cache2Q<T, K>::addToFront(List &cache, Map &hash, K key, T data) {
-    // logger->debug("Started addToFront");
     cache.emplace_front(key, data);
     hash.emplace(key, cache.begin());
 }

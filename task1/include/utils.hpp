@@ -10,10 +10,6 @@
 #include "cache_2q.hpp"
 #include "cache_belady.hpp"
 
-
-// slow get page imitation
-static int slow_get_page_int(int key) { return key; }
-
 template <typename K>
 void getInputData(size_t &szCache, size_t &amountPages, std::vector<K> &keys) {
     std::cout << "> ";

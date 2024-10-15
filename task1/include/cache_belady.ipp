@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 namespace caches {
 
 template <typename T, typename K>
@@ -10,7 +11,11 @@ bool CacheBelady<T, K>::lookupUpdate(K key, const std::span<K> &keys, F getPage)
         return true;
     } else {
         if (full()) {
-            remove(getUnwanted(keys));
+            K unwanted = getUnwanted(keys, key);
+            if (unwanted == key) {
+                return false;
+            }
+            remove(unwanted);
         }
         addToFront(key, getPage(key));
         return false;
@@ -18,19 +23,39 @@ bool CacheBelady<T, K>::lookupUpdate(K key, const std::span<K> &keys, F getPage)
 }
 
 template <typename T, typename K>
-typename CacheBelady<T, K>::ListIt CacheBelady<T, K>::getUnwanted(const std::span<K> &keys) {
-    int maxDistance = 0;
-    auto unwanted = cache.begin();
+K CacheBelady<T, K>::getUnwanted(const std::span<K> &keys, K newKey) {
+    size_t maxDistance = 0;
+    bool found = false;
+    K unwanted;
+
+    for (size_t i = 0; i < keys.size(); ++i) {
+        if (keys[i] == newKey) {
+            maxDistance = i;
+            unwanted = newKey;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        return newKey;
+    }
 
     for (auto elt = cache.begin(); elt != cache.end(); ++elt) {
-        for (int i{0}; i < keys.size(); ++i) {
+        found = false;
+        for (size_t i = 0; i < keys.size(); ++i) {
             if (keys[i] == elt->first) {
                 if (i > maxDistance) {
                     maxDistance = i;
-                    unwanted = elt;
+                    unwanted = elt->first;
                 }
+                found = true;
                 break;
             }
+        }
+        if (!found) {
+            unwanted = elt->first;
+            break;
         }
     }
 
@@ -38,9 +63,12 @@ typename CacheBelady<T, K>::ListIt CacheBelady<T, K>::getUnwanted(const std::spa
 }
 
 template <typename T, typename K>
-void CacheBelady<T, K>::remove(ListIt elt) {
-    hash.erase(elt->first);
-    cache.erase(elt);
+void CacheBelady<T, K>::remove(K key) {
+    auto elt = hash.find(key);
+    if (elt != hash.end()) {
+        cache.erase(elt->second);
+        hash.erase(elt->first);
+    }
 }
 
 template <typename T, typename K>

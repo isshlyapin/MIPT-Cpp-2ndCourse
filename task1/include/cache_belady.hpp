@@ -26,15 +26,15 @@ public:
     
     template <typename F>
     bool lookupUpdate(K key, const std::span<K> &keys, F getPage);
-    const List &getCache()  { return cache;  };
+    const List &getCache()  { return cache; }
 
 private:
-    bool full()  const { return (cache.size()  == sizeCache);  }
+    bool full() const { return (cache.size()  == sizeCache); }
     
-    void remove(ListIt elt);
+    void remove(K key);
     void addToFront(K key, T data);
 
-    ListIt getUnwanted(const std::span<K> &keys);
+    K getUnwanted(const std::span<K> &keys, K newKey);
 
     size_t sizeCache;
     
