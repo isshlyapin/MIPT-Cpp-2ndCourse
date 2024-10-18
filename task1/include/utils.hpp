@@ -32,6 +32,7 @@ int checkCache2Q(size_t szCache, size_t amountPages, std::vector<K> &keys, F get
 
     int hits{0};
     for (size_t i{0}; i < amountPages; ++i) {
+        std::cout << std::endl << "lookupUpdate page: " << i << " | " << "key: " << keys[i] << std::endl;
         if (cache.lookupUpdate(keys[i], getPage)) {
             hits++;
         }
@@ -46,6 +47,7 @@ int checkCacheBelady(size_t szCache, size_t amountPages, std::vector<K> &keys, F
 
     int hits{0};
     for (size_t i{0}; i < amountPages; ++i) {
+        std::cout << std::endl << "lookupUpdate page: " << i << " | " << "key: " << keys[i] << std::endl;
         if (cache.lookupUpdate(keys[i], std::span<K>(keys).subspan(i + 1), getPage)) {
             hits++;
         }
