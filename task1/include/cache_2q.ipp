@@ -1,6 +1,10 @@
 // cache_impl.hh
 #pragma once
 
+#include <stdexcept>
+
+#include "cache_2q.hpp"
+
 namespace caches {
 
 template <typename T, typename K>

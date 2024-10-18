@@ -4,7 +4,6 @@
 #include <list>
 #include <unordered_map>
 #include <cstddef>
-#include <stdexcept>
 
 namespace caches {
 

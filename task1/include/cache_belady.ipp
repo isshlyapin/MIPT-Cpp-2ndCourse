@@ -1,9 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <algorithm>
-#include <iterator>
-#include <unordered_set>
 
 #include "cache_belady.hpp"
 
