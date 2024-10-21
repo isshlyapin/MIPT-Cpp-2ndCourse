@@ -21,19 +21,15 @@ void getInputData(size_t &szCache, size_t &amountPages, std::vector<K> &keys) {
     std::cout << "> ";
 
     std::cin >> szCache >> amountPages;
-    assert(std::cin.good());
-    std::cout << "\nszCache = " << szCache << "; amountPages = " << amountPages << std::endl;    
+    assert(std::cin.good()); 
     
-    /*std::cout << "[";*/
     for (size_t i = 0; i < amountPages; ++i) {
         K key = 0;
         std::cin >> key; 
         assert(std::cin.good());
-        /*std::cout << key << " ";*/
         
         keys.push_back(key);
     }
-    /*std::cout << "]" << std::endl;*/
 }
 
 template <typename K>
@@ -42,7 +38,6 @@ int checkCache2Q(size_t szCache, size_t amountPages, std::vector<K> &keys) {
 
     int hits{0};
     for (size_t i{0}; i < amountPages; ++i) {
-        // std::cout << std::endl << "lookupUpdate page: " << i << " | " << "key: " << keys[i] << std::endl;
         if (cache.lookupUpdate(keys[i], getPage)) {
             hits++;
         }
