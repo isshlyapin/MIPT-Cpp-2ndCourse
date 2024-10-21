@@ -19,11 +19,13 @@ bool CacheBelady<T, K>::lookupUpdate(K key, const std::span<K> &keys, F getPage)
         if (full()) {
             std::cout << "Cache is full" << std::endl;
             K unwanted = getUnwanted(keys, key);
+            std::cout << "unwanted key = " << unwanted << std::endl;
             if (unwanted == key) {
                 std::cout << "The page will not be added to cache" << std::endl;
                 return false;
             }
             remove(unwanted);
+            std::cout << "Finish remove" << std::endl;
         }
         std::cout << "Add new page in cache" << std::endl;
         addToFront(key, getPage(key));
@@ -67,12 +69,18 @@ K CacheBelady<T, K>::getUnwanted(const std::span<K> &keys, K newKey) {
 
 template <typename T, typename K>
 void CacheBelady<T, K>::remove(K key) {
+    std::cout << "Start remove" << std::endl;
     auto elt = hash.find(key);
     if (elt != hash.end()) {
-        // cache.erase(cache.begin());
+    std::cout << "remove2" << std::endl;
+        std::cout << "remove element: " << elt->second->first << std::endl;
+        /*cache.erase(cache.begin());*/
         cache.erase(elt->second);
+    std::cout << "Start remove3" << std::endl;
         hash.erase(elt);
+    std::cout << "Start remove4" << std::endl;
     }
+    std::cout << "remove1" << std::endl;
 }
 
 template <typename T, typename K>

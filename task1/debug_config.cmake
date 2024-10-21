@@ -1,24 +1,45 @@
 set(MY_DEBUG_FLAGS
-    -g
+    -D_DEBUG
+    -ggdb3
     -O0
-    -Werror
-    -pedantic-errors
-
     -Wall
     -Wextra
-    -Wpedantic
-
+    -Weffc++
+    -Wmissing-declarations
     -Wcast-align
     -Wcast-qual
+    -Wchar-subscripts
     -Wconversion
-    -Wctor-dtor-privacy
-    -Wextra-semi
+    -Wempty-body
     -Wfloat-equal
+    -Wformat-security
+    -Winline
     -Wnon-virtual-dtor
-    -Wold-style-cast
     -Woverloaded-virtual
+    -Wpacked
+    -Wpointer-arith
+    -Winit-self
     -Wredundant-decls
+    -Wshadow
     -Wsign-conversion
     -Wsign-promo
-    -fsanitize=address
+    -Wstrict-overflow=2
+    -Wsuggest-override
+    -Wswitch-default
+    -Wswitch-enum
+    -Wundef
+    -Wunreachable-code
+    -Wunused
+    -Wvariadic-macros
+    -Wstack-protector
+    -fsized-deallocation
+    -fstack-protector
+    -fstrict-overflow
+    -fno-omit-frame-pointer
+    -Wlarger-than=8192
+    -fPIE
+    -Werror=vla
+    -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,nonnull-attribute,null,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
+    # -fsanitize=thread,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,nonnull-attribute,null,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
+    # -fsanitize=memory,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,nonnull-attribute,null,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
 )

@@ -9,6 +9,7 @@ set(TEST_SOURCES
     src/test_main.cpp
     src/test_cache.cpp
     src/test_utils.cpp
+    src/module_tests.cpp
 )
 
 
@@ -34,7 +35,7 @@ set_target_properties(MyTests PROPERTIES
 #                            GTest
 #--------------------------------------------------------------------
 find_package(GTest REQUIRED)
-target_link_libraries(MyTests PRIVATE GTest::gtest GTest::gtest_main)
+target_link_libraries(MyTests PRIVATE gtest::gtest)
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
