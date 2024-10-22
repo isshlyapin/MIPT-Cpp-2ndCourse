@@ -3,9 +3,6 @@
 
 #include "utils.hpp"
 
-// slow get page imitation
-static int slow_get_page_int(int key) { return key; }
-
 int main() {
     size_t cacheSize{0};
     size_t amountPages{0};
