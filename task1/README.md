@@ -9,7 +9,7 @@ cd MIPT-Cpp-2ndCourse/task1
 ```
 4) Для управления зависимостями используется conan
 ```
-conan install . --output-folder=build --build=missing
+conan install . --output-folder=build --build=missing --settings=build_type=Release
 ```
 5) Для сборки используется cmake
 ```
