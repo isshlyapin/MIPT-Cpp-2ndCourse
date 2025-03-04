@@ -2,4 +2,3 @@ build/
 bin/
 .devcontainer/
 CMakeUserPresets.json
-Dockerfile
