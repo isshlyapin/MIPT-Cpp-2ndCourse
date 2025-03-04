@@ -1,0 +1,25 @@
+name: task1 CI
+
+on:
+  push:
+    branches: main
+
+env:
+  WORKDIR: ./task1
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    container:
+      image: isshlyapin/ubuntu_cpp:0.1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build project
+        working-directory: ${{ env.WORKDIR }}
+        run: ./scripts/build.sh
+      
+      - name: Run tests
+        working-directory: ${{ env.WORKDIR }}
+        run: ./scripts/test.sh
