@@ -11,7 +11,9 @@ jobs:
   test:
     runs-on: ubuntu-24.04
     container:
-      image: isshlyapin/ubuntu_cpp:0.1
+      image: isshlyapin/ubuntu_cpp:0.2
+      volumes:
+        - /etc/localtime:/etc/localtime
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
