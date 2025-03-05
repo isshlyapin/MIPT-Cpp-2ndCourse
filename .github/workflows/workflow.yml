@@ -11,14 +11,10 @@ jobs:
   test:
     runs-on: ubuntu-24.04
     container:
-      image: isshlyapin/ubuntu_cpp:0.2
+      image: isshlyapin/ubuntu_cpp:0.3
       volumes:
         - /etc/localtime:/etc/localtime
     steps:
-      - name: Setup correct $HOME
-        run: |
-          export HOME=$(getent passwd $USER | cut -d: -f6)
-
       - name: Checkout code
         uses: actions/checkout@v4
 
