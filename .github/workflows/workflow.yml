@@ -15,6 +15,10 @@ jobs:
       volumes:
         - /etc/localtime:/etc/localtime
     steps:
+      - name: Setup correct $HOME
+        run: |
+          export HOME=$(getent passwd $USER | cut -d: -f6)
+
       - name: Checkout code
         uses: actions/checkout@v4
 
