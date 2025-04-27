@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Cache VERSION 0.0.1)
+project(Cache VERSION 0.1.0)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -47,24 +47,11 @@ set_target_properties(BeladyCache PROPERTIES
 )
 #--------------------------------------------------------------------
 
-
-
-#--------------------------------------------------------------------
-#             Указываем настройки компиляции для Debug
-#--------------------------------------------------------------------
-include(debug_config.cmake)
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(2QCache PRIVATE ${MY_DEBUG_FLAGS})
-    target_link_options   (2QCache PRIVATE ${MY_DEBUG_FLAGS})
-
-    target_compile_options(BeladyCache PRIVATE ${MY_DEBUG_FLAGS})
-    target_link_options   (BeladyCache PRIVATE ${MY_DEBUG_FLAGS})
-endif()
-#--------------------------------------------------------------------
-
-
 #--------------------------------------------------------------------
 #                           Подключаем тесты
 #--------------------------------------------------------------------
-add_subdirectory(test)
+option(ENABLE_TESTING "Enable building of tests" OFF)
+if(ENABLE_TESTING)
+    add_subdirectory(test)
+endif()
 #--------------------------------------------------------------------

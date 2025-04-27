@@ -8,20 +8,60 @@ env:
   WORKDIR: ./task1
 
 jobs:
-  test:
+  create:
     runs-on: ubuntu-24.04
     container:
-      image: isshlyapin/ubuntu_cpp:0.3
+      image: isshlyapin/ubuntu_cpp:1.0
       volumes:
         - /etc/localtime:/etc/localtime
+
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+        test: ["true", "false"]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build project
+      - name: Set up conan profile
         working-directory: ${{ env.WORKDIR }}
-        run: ./scripts/build.sh
+        run: |
+          uv run conan config install https://github.com/isshlyapin/conan_config.git
+
+      - name: Conan create
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          uv run conan create . --build=missing \
+            -s build_type=${{ matrix.build_type }} \
+            -o belady_and_2q_caches/*:test=${{ matrix.test }} \
+            -pr:b gcc13 -pr:h gcc13
+
+  test:
+    runs-on: ubuntu-24.04
+    container:
+      image: isshlyapin/ubuntu_cpp:1.0
+      volumes:
+        - /etc/localtime:/etc/localtime
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up conan profile
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          uv run conan config install https://github.com/isshlyapin/conan_config.git
+        
+      - name: Build default project
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          uv run conan build . --build=missing -s build_type=Release \
+          -o belady_and_2q_caches/*:test=true \
+          -pr:b gcc13 -pr:h gcc13
+
       
       - name: Run tests
         working-directory: ${{ env.WORKDIR }}
-        run: ./scripts/test.sh
+        run: |
+          ./bin/test
